@@ -1,8 +1,11 @@
 import 'package:quiz_app/answer_button.dart';
 import 'package:flutter/material.dart';
+import 'package:quiz_app/data/questions.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class QuestionScreen extends StatefulWidget {
-  const QuestionScreen({super.key});
+  const QuestionScreen({super.key, required this.chosenAnswer});
+  final Function(String answer) chosenAnswer;
 
   @override
   State<QuestionScreen> createState() {
@@ -11,21 +14,48 @@ class QuestionScreen extends StatefulWidget {
 }
 
 class _QuestionScreenState extends State<QuestionScreen> {
+  var currentQuestionIndex = 0;
+  void answerQuestion(String answer) {
+    setState(() {
+      widget.chosenAnswer(answer);
+      currentQuestionIndex++;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    final currentQuestion = questions[currentQuestionIndex];
+
     return SizedBox(
       width: double.infinity, //I made them stay in center
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const Text('The questions  ....', style: TextStyle(color: Colors.white),),
-          const SizedBox(
-            height: 30,
-          ),
-          AnswerButton(onTap: (){}, answerText: ('Answer1')),
-          AnswerButton(onTap: (){}, answerText: ('Answer1')),
-          AnswerButton(onTap: (){}, answerText: ('Answer1')),
-        ],
+      child: Container(
+        margin: const EdgeInsets.all(40),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              currentQuestion.text,
+              style: GoogleFonts.bitter(
+                color: const Color.fromARGB(255, 213, 162, 222),
+                fontWeight: FontWeight.bold,
+                fontSize: 24,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(
+              height: 25,
+            ),
+            ...currentQuestion.shuffledQuizQuestion().map((answerr) {
+              return AnswerButton(
+                answerText: answerr,
+                onTap: () {
+                  answerQuestion(answerr);
+                },
+              );
+            })
+          ],
+        ),
       ),
     );
   }
