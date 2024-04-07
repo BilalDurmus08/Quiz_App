@@ -1,7 +1,7 @@
 import 'package:quiz_app/answer_button.dart';
 import 'package:flutter/material.dart';
 import 'package:quiz_app/data/questions.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:quiz_app/models/text_style.dart';
 
 class QuestionScreen extends StatefulWidget {
   const QuestionScreen({super.key, required this.chosenAnswer});
@@ -34,15 +34,7 @@ class _QuestionScreenState extends State<QuestionScreen> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
-              currentQuestion.text,
-              style: GoogleFonts.bitter(
-                color: const Color.fromARGB(255, 213, 162, 222),
-                fontWeight: FontWeight.bold,
-                fontSize: 24,
-              ),
-              textAlign: TextAlign.center,
-            ),
+           MyTextStyle(message: currentQuestion.text, fontSizeMy: 22),
             const SizedBox(
               height: 25,
             ),
