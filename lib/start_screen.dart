@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quiz_app/models/text_style.dart';
 
 class StartScreen extends StatelessWidget {
   const StartScreen(this.firstPage,{super.key});
@@ -22,11 +23,7 @@ class StartScreen extends StatelessWidget {
             ),
           ), */
           const SizedBox(height: 50),
-          const Text('Learn Flutter the fun way!',
-              style: TextStyle(
-                  fontSize: 25,
-                  color: Colors.white70,
-                  fontWeight: FontWeight.w600)),
+          const MyTextStyle(message: 'Learn Flutter the fun way!', fontSizeMy: 24),
           const SizedBox(height: 25),
           OutlinedButton.icon(
             onPressed: () {
