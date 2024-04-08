@@ -28,8 +28,12 @@ class QuestionSummary extends StatelessWidget {
                     data['correct-answer'].toString(),
                   ),
                 ),
+                const SizedBox(
+                  width: 15,
+                ),
                 Expanded(
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       MyTextStyle(
                           message: data['question'].toString(), fontSizeMy: 17),
@@ -41,6 +45,7 @@ class QuestionSummary extends StatelessWidget {
                         data['correct-answer'].toString(),
                         style: TextStyle(color: Colors.blue.shade200),
                       ),
+                      const SizedBox(height: 10),
                     ],
                   ),
                 )

@@ -4,10 +4,12 @@ import 'package:quiz_app/result_screen/question_summary.dart';
 import 'package:quiz_app/models/text_style.dart';
 
 class ResultScreen extends StatelessWidget {
-  ResultScreen({required this.givenAnswers, super.key});
+  ResultScreen(
+      {required this.givenAnswers, super.key, required this.reStartQuiz});
   List<String> givenAnswers;
+  final void Function() reStartQuiz;
 
-  List<Map<String, Object>> getSummaryData() {
+  List<Map<String, Object>> get summaryData {
     List<Map<String, Object>> summary = [];
 
     for (int i = 0; i < questions.length; i++) {
@@ -23,7 +25,7 @@ class ResultScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final summaryData1 = getSummaryData();
+    final summaryData1 = summaryData;
     final numTotalQuestion = questions.length;
     final numCorrectQuestion = summaryData1.where((data) {
       return data['correct-answer'] == data['user-answer'];
@@ -47,11 +49,14 @@ class ResultScreen extends StatelessWidget {
             const SizedBox(
               height: 30,
             ),
-            IconButton(
-              icon:const Icon(Icons.restore_sharp),
-              onPressed: () {},
+            TextButton.icon(
+              icon: const Icon(Icons.refresh),
+              label: const Text('Restart Quiz'),
+              style: TextButton.styleFrom(
+                foregroundColor: Colors.white,
+              ),
+              onPressed: reStartQuiz,
             ),
-            
           ],
         ),
       ),
